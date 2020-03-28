@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="56beaed7-13bc-4d66-b21c-a4fddb5fcfec" name="200.58.80.139" url="http://200.58.80.139/contable/">
+        <fileTransfer host="200.58.80.139" port="22" rootFolder="/var/www/html/contable" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
