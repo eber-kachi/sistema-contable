@@ -16,5 +16,6 @@ Route::get('/', function () {
 });
 Route::resource('articulo','ArticuloController');
 Route::resource('almacen','AlmacenController');
+
 Route::resource('unidad','UnidadController');
 
