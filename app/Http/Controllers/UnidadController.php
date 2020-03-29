@@ -15,8 +15,8 @@ class UnidadController extends Controller
     public function index()
     {
         //
-        $unidad = Unidad::all();
-        return view('none')->with('unidad', $unidad);
+        $unidades = Unidad::all();
+        return view('unidad.index')->with('unidades', $unidades);
     }
 
     /**
@@ -27,7 +27,6 @@ class UnidadController extends Controller
     public function create()
     {
         //
-        return view('familiar.create', compact('employeeId'));
     }
 
     /**
@@ -82,7 +81,7 @@ class UnidadController extends Controller
         $unidad = Unidad::find($cod_unidad);
         $unidad->update($request->all());
 
-        return redirect()->route('uniad.index', $cod_unidad);
+        return redirect()->route('unidad.index', $cod_unidad);
     }
 
     /**
