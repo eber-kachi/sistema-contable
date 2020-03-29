@@ -15,8 +15,8 @@ class UnidadController extends Controller
     public function index()
     {
         //
-        $unidad = Unidad::all();
-        return view('unidad.index')->with('unidad', $unidad);
+        $unidades = Unidad::all();
+        return view('unidad.index')->with('unidades', $unidades);
     }
 
     /**

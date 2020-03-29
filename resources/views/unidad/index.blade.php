@@ -17,15 +17,13 @@
         </thead>
         <tbody>
         <tr>
-            @foreach($articulos as $articulo)
-                <td>{{ $articulo->cod_articulo }}</td>
-                <td>{{ $articulo->desc_articulo }}</td>
-                <td>{{ $articulo->glosa_articulo }}</td>
-                <td>{{ $articulo->costo_unidad_articulo }}</td>
-                <td>{{ $articulo->saldo_cantidad_articulo }}</td>
-                <td>{{ $articulo->almacen->desc_almacen }}</td>
+            @foreach($unidades as $unidad)
+                <td>{{ $unidad->cod_unidad }}</td>
+                <td>{{ $unidad->desc_unidad }}</td>
+                <td>{{ $unidad->cod_sucursal }}</td>
+                <td>{{ $unidad->enviado }}</td>
                 <td>
-                    <form action="{{route('articulo.destroy',$articulo->cod_articulo)}}">
+                    <form action="{{route('unidad.destroy',$unidad->cod_unidad)}}">
                         @csrf
                         @method('DELETE')
                         <button class="btn btn-danger" type="submit" >
