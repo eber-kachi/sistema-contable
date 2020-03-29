@@ -15,4 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::resource('articulo','ArticuloController');
+Route::resource('almacen','AlmacenController');
 Route::resource('unidad','UnidadController');
+

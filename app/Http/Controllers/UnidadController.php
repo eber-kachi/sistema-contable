@@ -93,9 +93,9 @@ class UnidadController extends Controller
     public function destroy($cod_unidad)
     {
         //
-        $unidad = Familiar::find($cod_unidad);
+        $unidad = Unidad::find($cod_unidad);
         $unidad->delete();
 
-        return redirect()->route('unidad.index', $cod_unidad);
+        return redirect()->route('unidad.index');
     }
 }
