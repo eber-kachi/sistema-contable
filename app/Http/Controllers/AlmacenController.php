@@ -15,8 +15,9 @@ class AlmacenController extends Controller
     public function index()
     {
         $almacenes = Almacen::all();
-
-        return view('almacen.index', compact('almacenes'));
+        $count=0;
+//dd($almacenes);
+        return view('almacen.index', compact('almacenes','count'));
     }
 
     /**
@@ -26,7 +27,7 @@ class AlmacenController extends Controller
      */
     public function create()
     {
-//        return view('almacen.create', compact('almacenes'));
+        return view('almacen.create');
     }
 
     /**
@@ -37,10 +38,14 @@ class AlmacenController extends Controller
      */
     public function store(Request $request)
     {
+//        dd($request);
         $almacen = new Almacen();
+        $almacen->cod_almacen = $request->cod_almacen;
         $almacen->desc_almacen = $request->desc_almacen;
         $almacen->cod_sucursal = $request->cod_sucursal;
+        $almacen->enviado ='0';
         $almacen->save();
+        return redirect()->route('almacen.index');
     }
 
     /**
@@ -63,7 +68,7 @@ class AlmacenController extends Controller
     public function edit($id)
     {
         $almacen = Almacen::find($id);
-        return view('almacen.create', compact('almacen'));
+        return view('almacen.edit', compact('almacen'));
     }
 
     /**
@@ -80,7 +85,7 @@ class AlmacenController extends Controller
 //        $almacen->cod_sucursal = $request->cod_sucursal;
         $almacen->save();
 
-        return view('almacen.create', compact('almacen'));
+        return redirect()->route('almacen.index');
     }
 
     /**
@@ -91,8 +96,9 @@ class AlmacenController extends Controller
      */
     public function destroy($id)
     {
+//        dd($id);
          Almacen::find($id)->delete();
 
-        return view('almacen.create', compact('almacen'));
+        return redirect()->route('almacen.index');
     }
 }
