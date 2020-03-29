@@ -6,7 +6,7 @@
            <div class="card">
                <div class="card-header">
                    <h4 class="float-left">lista de almacen</h4>
-                   <a href="{{route('almacen.create')}}" class="btn btn-success float-right">Nuevo Almacen</a>
+                   <a href="{{route('almacen.create')}}" class="btn btn-primary float-right">Nuevo Almacen</a>
                </div>
                <div class="card-body">
                    <table class="table table-hover table-bordered ">
