@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Articulo;
+use App\Almacen;
+use App\Moneda;
+use App\Unidad;
 use Illuminate\Http\Request;
 
 class ArticuloController extends Controller
@@ -26,10 +29,11 @@ class ArticuloController extends Controller
     public function create()
     {
         $almacenes = Almacen::pluck('desc_almacen','cod_almacen')->all();
-        $almacenes = Almacen::pluck('desc_almacen','cod_sucursal')->all();
-        $unidades = Unidad::pluck('cod_unidad', 'desc_unidad')->all();
+        $sucursales = Almacen::pluck('desc_almacen','cod_sucursal')->all();
+        $unidades = Unidad::pluck('desc_unidad','cod_unidad')->all();
         $monedas = Moneda::pluck('cod_moneda')->all();
-        return view('articulo.index');
+        return view('articulo.create',
+        compact('almacenes','sucursales', 'unidades', 'monedas'));
     }
 
     /**
@@ -40,7 +44,7 @@ class ArticuloController extends Controller
      */
     public function store(Request $request)
     {
-        $articulo = new Articulo($request->all());
+        Articulo::create($request->all());
         return redirect()->route('articulo.index');
     }
 
@@ -63,11 +67,13 @@ class ArticuloController extends Controller
      */
     public function edit($id)
     {
+        $articulo = Articulo::findOrFail($id);
         $almacenes = Almacen::pluck('desc_almacen','cod_almacen')->all();
-        $almacenes = Almacen::pluck('desc_almacen','cod_sucursal')->all();
-        $unidades = Unidad::pluck('cod_unidad', 'desc_unidad')->all();
+        $sucursales = Almacen::pluck('desc_almacen','cod_sucursal')->all();
+        $unidades = Unidad::pluck('desc_unidad','cod_unidad')->all();
         $monedas = Moneda::pluck('cod_moneda')->all();
-        return view('articulo.edit');
+        return view('articulo.edit',
+            compact('articulo','almacenes','sucursales','unidades','monedas'));
     }
 
     /**
@@ -81,6 +87,7 @@ class ArticuloController extends Controller
     {
         $articulo = Articulo::findOrFail($id);
         $articulo->update($request->all());
+        return redirect()->route('articulo.index');
     }
 
     /**
@@ -93,6 +100,6 @@ class ArticuloController extends Controller
     {
         $articulo = Articulo::findOrFail($id);
         $articulo->delete();
-        return redirect()->route('articulo .index');
+        return redirect()->route('articulo.index');
     }
 }

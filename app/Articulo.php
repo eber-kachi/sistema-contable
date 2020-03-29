@@ -12,7 +12,7 @@ class Articulo extends Model
     protected $fillable = [
         'cod_articulo', 'desc_articulo', 'glosa_articulo', 'costo_unidad_articulo',
         'saldo_cantidad_articulo', 'stock_minimo_articulo', 'cod_sucursal',
-        'stock_maximo_articulo', 'cod_almacen', 'cod_unidad', 'cod_moneda'
+        'stock_maximo_articulo', 'cod_almacen', 'cod_unidad', 'cod_moneda', 'enviado'
     ];
 
     public function sucursal() {
