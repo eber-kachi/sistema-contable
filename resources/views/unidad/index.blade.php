@@ -1,11 +1,11 @@
 @extends('layouts.app')
 @section('content')
     <h2>Lista de Unidades</h2>
-    <button class="btn btn-primary">
+    <a href="{{route('unidad.create')}}" class="btn btn-primary btn-circle btn-xl">
         Agregar
-    </button>
+    </a>
     <br><br>
-    <table class="table table-dark">
+    <table class="table table-bordered">
         <thead>
         <tr>
             <th>Codigo</th>
@@ -16,26 +16,26 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            @foreach($unidades as $unidad)
+        @foreach($unidades as $unidad)
+            <tr>
                 <td>{{ $unidad->cod_unidad }}</td>
                 <td>{{ $unidad->desc_unidad }}</td>
                 <td>{{ $unidad->cod_sucursal }}</td>
                 <td>{{ $unidad->enviado }}</td>
                 <td>
-                    <form action="{{route('unidad.destroy',$unidad->cod_unidad)}}">
+                    <form action="{{route('unidad.destroy',$unidad->cod_unidad)}}" method="post">
                         @csrf
                         @method('DELETE')
                         <button class="btn btn-danger" type="submit" >
                             Eliminar
                         </button>
                     </form>
-                    <button class="btn btn-info">
+                    <a href="{{route('unidad.edit', $unidad->cod_unidad)}}" class="btn btn-info" >
                         Editar
-                    </button>
+                    </a>
                 </td>
-            @endforeach
-        </tr>
+            </tr>
+        @endforeach
         </tbody>
     </table>
 @endsection

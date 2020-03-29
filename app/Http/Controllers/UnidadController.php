@@ -27,6 +27,7 @@ class UnidadController extends Controller
     public function create()
     {
         //
+        return view('unidad.create');
     }
 
     /**
@@ -64,9 +65,11 @@ class UnidadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($cod_unidad)
     {
         //
+        $unidad = Unidad::find($cod_unidad);
+        return view('unidad.edit',  compact('unidad'));
     }
 
     /**
@@ -79,7 +82,11 @@ class UnidadController extends Controller
     public function update(Request $request, $cod_unidad)
     {
         $unidad = Unidad::find($cod_unidad);
-        $unidad->update($request->all());
+        $unidad->cod_unidad = $request->get('cod_unidad');
+        $unidad->desc_unidad= $request->get('desc_unidad');
+        $unidad->cod_sucursal = $request->get('cod_sucursal');
+        $unidad->enviado = $request->get('enviado');
+        $unidad->update();
 
         return redirect()->route('unidad.index', $cod_unidad);
     }
