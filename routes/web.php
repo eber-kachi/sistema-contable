@@ -15,3 +15,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::resource('articulo','ArticuloController');
+Route::resource('unidad','UnidadController');
