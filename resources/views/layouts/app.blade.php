@@ -30,6 +30,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{route('unidad.index')}}">Unidad</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('transaccionArticulo.index')}}">Transacciones</a>
+            </li>
 
         </ul>
         <form class="form-inline my-2 my-lg-0">

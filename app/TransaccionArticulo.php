@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class TransaccionArticulo extends Model
 {
-    protected $table = 'ive_transaccion_articulo';
+    protected $table = 'ive_transacciones_articulo';
     protected $primaryKey = 'nc_trans_articulo';
     public $timestamps = false;
     protected $fillable = [

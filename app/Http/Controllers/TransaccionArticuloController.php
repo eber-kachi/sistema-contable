@@ -34,11 +34,12 @@ class TransaccionArticuloController extends Controller
           $articulos = Articulo::pluck('cod_articulo','desc_articulo')->all();      
           $monedas = Moneda::pluck('cod_moneda')->all();      
         //  $transacciones = Transaccion::pluck('')->all();      
-          $sucursales = Sucursal::pluck('cod_sucursal','desc_almacen')->all();      
+          //$sucursales = Sucursal::pluck('cod_sucursal','desc_almacen')->all();   
+          $sucursales = Almacen::pluck('desc_almacen','cod_sucursal')->all();   
           $unidades = Unidad::pluck('cod_unidad','desc_unidad')->all();
           return view('transaccionArticulo.create',
           compact('almacenes','sucursales', 'unidades', 'monedas','articulos'));
-   
+          
     }
 
 
@@ -81,7 +82,8 @@ class TransaccionArticuloController extends Controller
           $articulos = Articulo::pluck('desc_articulo','cod_articulo')->all();      
           $monedas = Moneda::pluck('cod_moneda')->all();      
         //  $transacciones = Transaccion::pluck('')->all();      
-          $sucursales = Sucursal::pluck('desc_almacen','cod_sucursal')->all();      
+          //$sucursales = Sucursal::pluck('desc_almacen','cod_sucursal')->all(); 
+          $sucursales = Almacen::pluck('desc_almacen','cod_sucursal')->all();     
           $unidades = Unidad::pluck('desc_unidad','cod_unidad')->all();
           return view('transaccionArticulo.edit',
           compact('transaccionArticulo','articulo','almacenes','sucursales','unidades','monedas'));
