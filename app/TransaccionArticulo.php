@@ -38,7 +38,9 @@ class TransaccionArticulo extends Model
     public function unidad() {
         return $this->belongsTo('App\Unidad', 'cod_unidad', 'cod_unidad');
     }
-
+    //public function grupoAlmacen() {
+    //    return $this->belongsTo('App\Unidad', 'cod_grupo_almacen', 'cod_grupo_almacen');
+    //}
 
 
 }
