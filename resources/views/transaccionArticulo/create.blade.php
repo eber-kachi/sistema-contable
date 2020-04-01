@@ -2,6 +2,11 @@
 @section('content')
     <h2>Nueva Transacción</h2>
     <br><br>
+    <?php
+        date_default_timezone_set('America/La_Paz');
+        $fecha_actual=date("Y-m-d");
+        $hora_actual=date("H:i:s");
+    ?>
     <form action="{{route('articulo.store')}}" method="post">
         @csrf
         <label>Número Clave:</label>
@@ -11,9 +16,9 @@
         <label>Cuenta Consumo:</label>
         <input class="form-control" type="text" name="cuenta_consumo">
         <label>Fecha Transacción:</label>
-        <input class="form-control" type="text" name="fecha_trans_articulo">
+        <input class="form-control" type="datetime" name="fecha_trans_articulo" value="<?= $fecha_actual?>">
         <label>Hora Transacción:</label>
-        <input class="form-control" type="text" name="hora_trans_articulo">
+        <input class="form-control" type="datetime" name="hora_trans_articulo" value="<?= $hora_actual?>">
         <label>Glosa Transacción:</label>
         <input class="form-control" type="text" name="glosa_trans_articulo">
         <label>Cantidad Articulo:</label>

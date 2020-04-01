@@ -11,6 +11,7 @@
                 <th>Número Clave</th>
                 <th>Cuenta Solicitud</th>
                 <th>Cuenta Consumo</th>
+                <th>Codigo Articulo</th>
                 <th>Fecha</th>
                 <th>Hora</th>
                 <th>Descripción</th>
@@ -32,6 +33,7 @@
                     <td>{{ $transaccionArticulo->nc_trans_articulo}}</td>
                     <td>{{ $transaccionArticulo->cuenta_solicitud}}</td>
                     <td>{{ $transaccionArticulo->cuenta_consumo}}</td>
+                    <td>{{ $transaccionArticulo->cod_articulo}}</td>
                     <td>{{ $transaccionArticulo->fecha_trans_articulo}}</td>
                     <td>{{ $transaccionArticulo->hora_trans_articulo}}</td>
                     <td>{{ $transaccionArticulo->glosa_trans_articulo}}</td>
