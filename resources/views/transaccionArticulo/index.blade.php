@@ -31,6 +31,7 @@
                         <th>Usuario Consumo</th>
                         <!--<th>Código Sucursal</th>-->
                         <th>Enviado</th>
+                        <th>Opciones</th>
                         </tr>
                         </thead>
                         <tbody>
