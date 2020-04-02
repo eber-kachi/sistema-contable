@@ -26,11 +26,11 @@
                     aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a href="index.html" class="pl-md-0 p-3 text-light">Start</a>
-                    <a href="app.html" class="p-3 text-decoration-none text-light">App example</a>
-                    <a href="form.html" class="p-3 text-decoration-none text-light">Form example</a>
+            <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
+                <div class="navbar-nav align-items-center">
+                    <a href="index.html" class="pl-md-0 p-3 text-light display-fix">Contable</a>
+                    <a href="{{route('articulo.index')}}" class="p-3 text-decoration-none text-light">Articulos</a>
+{{--                    <a href="form.html" class="p-3 text-decoration-none text-light">Form example</a>--}}
                 </div>
             </div>
         </nav>
@@ -43,17 +43,17 @@
     <div class="container">
 
         <h1 class="display-1 text-light">Contable</h1>
-        <span class="lead">This is a starter template with a jumbotron</span>
+        <span class="lead"></span>
 
-        <div class="mt-4">
-            <a href="#!" class="btn btn-success btn-pill btn-wide btn-lg my-2 mr-2"><span>A Button</span>
+   {{--     <div class="mt-4">
+            <a href="#!" class="btn btn-success btn-pill btn-wide btn-lg my-2 mr-2"><span></span>
             </a>
 
             <a href="#!"
                class="btn btn-primary btn-pill btn-wide btn-lg my-2">
                 <span>Another Button</span>
             </a>
-        </div>
+        </div>--}}
 
     </div>
 </div>
