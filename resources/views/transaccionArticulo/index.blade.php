@@ -9,9 +9,11 @@
         <thead>
             <tr>
                 <th>Número Clave</th>
+                <th>Código Almacén</th>
+                <th>Código Articulo</th>
+                <th>Código Moneda</th>
                 <th>Cuenta Solicitud</th>
                 <th>Cuenta Consumo</th>
-                <th>Codigo Articulo</th>
                 <th>Fecha</th>
                 <th>Hora</th>
                 <th>Descripción</th>
@@ -22,7 +24,6 @@
                 <th>Tipo Cambio</th>
                 <th>Usuario Registro</th>
                 <th>Usuario Consumo</th>
-                <th>Anulado</th>
                 <th>Código Sucursal</th>
                 <th>Enviado</th>
             </tr>
@@ -31,9 +32,11 @@
                 @foreach($transaccionArticulos as $transaccionArticulo)
             <tr>
                     <td>{{ $transaccionArticulo->nc_trans_articulo}}</td>
+                    <td>{{ $transaccionArticulo->cod_almacen}}</td>
+                    <td>{{ $transaccionArticulo->cod_articulo}}</td>
+                    <td>{{ $transaccionArticulo->cod_moneda}}</td>
                     <td>{{ $transaccionArticulo->cuenta_solicitud}}</td>
                     <td>{{ $transaccionArticulo->cuenta_consumo}}</td>
-                    <td>{{ $transaccionArticulo->cod_articulo}}</td>
                     <td>{{ $transaccionArticulo->fecha_trans_articulo}}</td>
                     <td>{{ $transaccionArticulo->hora_trans_articulo}}</td>
                     <td>{{ $transaccionArticulo->glosa_trans_articulo}}</td>
@@ -44,6 +47,7 @@
                     <td>{{ $transaccionArticulo->tipo_cambio_moneda}}</td>
                     <td>{{ $transaccionArticulo->usuario_registro}}</td>
                     <td>{{ $transaccionArticulo->usuario_consumo}}</td>
+                    <td>{{ $transaccionArticulo->cod_sucursal}}</td>
                     <td>{{ $transaccionArticulo->enviado}}</td>
                     <td>
                         <form action="{{route('transaccionArticulo.destroy',$transaccionArticulo->nc_trans_articulo)}}" method="post">
