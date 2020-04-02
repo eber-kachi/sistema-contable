@@ -84,7 +84,7 @@ class TransaccionArticuloController extends Controller
           //$sucursales = Sucursal::pluck('cod_sucursal','desc_almacen')->all();   
           $sucursales = Almacen::pluck('cod_sucursal')->all();   
           return view('transaccionArticulo.edit',
-          compact('transaccionArticulo','articulo','almacenes','sucursales','unidades','monedas'));
+          compact('transaccionArticulo','articulos','almacenes','sucursales','monedas'));
   }
 
     /**
