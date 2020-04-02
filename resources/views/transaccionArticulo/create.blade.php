@@ -1,7 +1,11 @@
 @extends('layouts.app')
 @section('content')
-    <h2>Nueva Transacción</h2>
-    <br><br>
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Nueva Transacción</h4>
+        </div>
+        <div class="card-body">
+
     <?php
         date_default_timezone_set('America/La_Paz');
         $fecha_actual=date("Y-m-d");
@@ -60,15 +64,12 @@
         <input class="form-control" type="text" name="usuario_registro">
         <label>Usuario de Consumo:</label>
         <input class="form-control" type="text" name="usuario_consumo">
-     
-     
-        <label>Enviado:</label>
-        <input class="form-control" type="text" name="enviado">
-        
-        
 
-        <br>
-        <input class="form-control" type="text" value="1" name="enviado" hidden>
+
+
+        <input class="form-control" type="hidden" value="1" name="enviado" >
         <input type="submit" class="btn btn-primary" value="Registrar">
     </form>
+        </div>
+    </div>
 @endsection

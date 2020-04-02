@@ -1,7 +1,11 @@
 @extends('layouts.app')
 @section('content')
-    <h2>Actualizar transaccionArticulo "{{ $transaccionArticulo->nc_trans_articulo }}"</h2>
-    <br><br>
+
+<div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Actualizar transaccionArticulo "{{ $transaccionArticulo->nc_trans_articulo }}"</h4>
+        </div>
+        <div class="card-body">
     <form action="{{route('transaccionArticulo.update',$transaccionArticulo->nc_trans_articulo)}}" method="post">
         @method('put')
         @csrf
@@ -60,4 +64,7 @@
         <input class="form-control" type="text" value="1" name="enviado" hidden>
         <input type="submit" class="btn btn-primary" value="Registrar">
     </form>
-@endsection
+    </div>
+    </div>
+
+
