@@ -5,31 +5,32 @@
     <?php
         date_default_timezone_set('America/La_Paz');
         $fecha_actual=date("Y-m-d");
-        //$hora_actual=date("H:i:s");
+        $hora_actual=date("H:i:s");
     ?>
     <form action="{{route('transaccionArticulo.store')}}" method="post">
         @csrf
-        <label>codigo Transaccion Articulo:</label>
+        <label>Codigo Transaccion Articulo:</label>
         <input class="form-control" type="int" name="nc_trans_articulo">
-        <label>Cod sucursal:</label>
+        <label>Codigo sucursal:</label>
         <select class="form-control" name="cod_sucursal" id="">
             @foreach($sucursales as $key => $sucursal)
             <option value="{{$key}}">{{$sucursal}}</option>
             @endforeach
         </select>
-        <label>Almacen:</label>
+        <!--
+        <label>Codigo Almacen:</label>
         <select class="form-control" name="cod_almacen" id="">
             @foreach($almacenes as $key => $almacen)
             <option value="{{$key}}">{{$almacen}}</option>
             @endforeach
-        </select>
+        </select>-->
         <label>Código Artículo:</label>
         <select class="form-control" name="cod_articulo" id="">
             @foreach($articulos as $articulo)
             <option value="{{$articulo}}">{{$articulo}}</option>
             @endforeach
         </select>
-        <label>Cod moneda:</label>
+        <label>Codigo moneda:</label>
         <select class="form-control" name="cod_moneda" id="">
             @foreach($monedas as $moneda)
             <option value="{{$moneda}}">{{$moneda}}</option>
@@ -42,7 +43,7 @@
         <label>Fecha Transacción:</label>
         <input class="form-control" type="date" name="fecha_trans_articulo" value="<?= $fecha_actual?>">
         <label>Hora Transacción:</label>
-        <input class="form-control" type="text" name="hora_trans_articulo">
+        <input class="form-control" type="text" name="hora_trans_articulo" value="<?= $hora_actual?>">
         <label>Glosa Transacción:</label>
         <input class="form-control" type="text" name="glosa_trans_articulo">
         <label>Cantidad Transacción Articulo:</label>
