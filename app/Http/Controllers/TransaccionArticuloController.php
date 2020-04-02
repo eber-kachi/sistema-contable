@@ -76,14 +76,13 @@ class TransaccionArticuloController extends Controller
     public function edit($id)
     {
         $transaccionArticulo = TransaccionArticulo::findOrFail($id);
-        $almacenes = Almacen::pluck('cod_almacen','desc_almacen')->all();        
+        $almacenes = Almacen::pluck('cod_almacen')->all();        
         //  $grupoAlmacenes = GrupoAlmacen::pluck('')->all();
           $articulos = Articulo::pluck('cod_articulo','desc_articulo')->all();      
           $monedas = Moneda::pluck('cod_moneda')->all();      
         //  $transacciones = Transaccion::pluck('')->all();      
-          //$sucursales = Sucursal::pluck('desc_almacen','cod_sucursal')->all(); 
-          $sucursales = Almacen::pluck('cod_almacen','desc_sucursal')->all();     
-          $unidades = Unidad::pluck('desc_unidad','cod_unidad')->all();
+          //$sucursales = Sucursal::pluck('cod_sucursal','desc_almacen')->all();   
+          $sucursales = Almacen::pluck('cod_sucursal')->all();   
           return view('transaccionArticulo.edit',
           compact('transaccionArticulo','articulo','almacenes','sucursales','unidades','monedas'));
   }

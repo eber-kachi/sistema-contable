@@ -7,24 +7,18 @@
         @csrf
         <label>Número Clave:</label>
         <input class="form-control" type="text" name="nc_trans_articulo" value="{{$transaccionArticulo->nc_trans_articulo}}">
+
+        </select>
         <label>Codigo sucursal:</label>
         <select class="form-control" name="cod_sucursal" value="{{ $transaccionArticulo->cod_sucursal}}">
-            <option value="{{ $transacciónArticulo->sucursal->cod_sucursal }}" selected>{{ $transaccionArticulo->sucursal->desc_almacen }}</option>
             @foreach($sucursales as $key => $sucursal)
-                <option value="{{$key}}">{{$sucursal}}</option>
-            @endforeach
-        </select>
-        <label>Codigo Almacen:</label>
-        <select class="form-control" name="cod_almacen" value="{{$transaccionArticulo->cod_almacen}}">
-            <option value="{{$transaccionArticulo->almacen->cod_almacen}}" selected>{{$transaccionArticulo->almacen->desc_almacen}} </option>
-            @foreach($almacenes as $key => $almacen)
-                <option value="{{$key}}">{{$almacen}}</option>
+            <option value="{{$key}}">{{$sucursal}}</option>
             @endforeach
         </select>
         <label>Artículo:</label>
         <select class="form-control" name="cod_articulo" value="{{$transaccionArticulo->cod_articulo}}">
             <option value="{{$transaccionArticulo->articulo->cod_articulo}}" selected>{{$transaccionArticulo->articulo->desc_articulo}} </option>
-            @foreach($articulos as $key => $articulo)
+            @foreach($transaccionArticulo as $key => $articulo)
                 <option value="{{$key}}">{{$articulo}}</option>
             @endforeach
         </select>
