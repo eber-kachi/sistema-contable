@@ -1,10 +1,15 @@
 @extends('layouts.app')
 @section('content')
-    <h2>Lista de Unidades</h2>
-    <a href="{{route('unidad.create')}}" class="btn btn-primary btn-circle btn-xl">
-        Agregar
-    </a>
-    <br><br>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="float-left">Lista de Unidades</h2>
+                <a href="{{route('unidad.create')}}" class="btn btn-primary float-right">
+                    Agregar
+                </a>
+            </div>
+    <div class="card-body">
     <table class="table table-bordered">
         <thead>
         <tr>
@@ -23,19 +28,23 @@
                 <td>{{ $unidad->cod_sucursal }}</td>
                 <td>{{ $unidad->enviado }}</td>
                 <td>
-                    <form action="{{route('unidad.destroy',$unidad->cod_unidad)}}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-danger" type="submit" >
-                            Eliminar
-                        </button>
-                    </form>
-                    <a href="{{route('unidad.edit', $unidad->cod_unidad)}}" class="btn btn-info" >
-                        Editar
-                    </a>
+                <div class="d-flex justify-content-around">
+                                        <a href="{{route('unidad.edit',$unidad->cod_unidad)}}" class="btn btn-warning">Editar</a>
+                                    <form action="{{route('unidad.destroy',$unidad->cod_unidad)}}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                        <button class="btn btn-danger" type="submit" >
+                                                Eliminar
+                                        </button>
+                                    </form>
+                                </div>
                 </td>
             </tr>
         @endforeach
         </tbody>
     </table>
+    </div>
+        </div>
+    </div>
+</div>
 @endsection
