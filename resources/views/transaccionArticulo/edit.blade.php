@@ -48,9 +48,9 @@
         <label>Costo Unidad:</label>
         <input class="form-control" type="text" name="costo_unidad_articulo" value="{{$transaccionArticulo->costo_unidad_articulo}}">
         <label>Saldo Cantidad:</label>
-        <input class="form-control" type="text" name="saldo_cantidad_articulo" value="{{$transaccionArticulo->saldo_cantidad_trans_articulo}}">
+        <input class="form-control" type="text" name="saldo_cantidad_articulo" value="{{$transaccionArticulo->saldo_cantidad_articulo}}">
         <label>Saldo Costo:</label>
-        <input class="form-control" type="text" name="saldo_costo_articulo" value="{{$transaccionArticulo->saldo_costo_trans_articulo}}">
+        <input class="form-control" type="text" name="saldo_costo_articulo" value="{{$transaccionArticulo->saldo_costo_articulo}}">
         <label>Tipo de Cambio Moneda:</label>
         <input class="form-control" type="text" name="tipo_cambio_moneda" value="{{$transaccionArticulo->tipo_cambio_moneda}}">
         <label>Usuario de Registro:</label>
