@@ -17,7 +17,7 @@ class CreateBitacoraTable extends Migration
             $table->bigIncrements('bitacora_id');
             $table->string('user_id');
             $table->string('table');
-            $table->string('table_id');
+            $table->string('table_id')->nullable();
             $table->string('actions');
             $table->timestamps();
         });
