@@ -16,6 +16,10 @@ class TransaccionArticuloController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         $transaccionArticulos = TransaccionArticulo::all();
@@ -29,20 +33,20 @@ class TransaccionArticuloController extends Controller
      */
     public function create()
     {
-        $almacenes = Almacen::pluck('cod_almacen')->all();        
+        $almacenes = Almacen::pluck('cod_almacen')->all();
         //  $grupoAlmacenes = GrupoAlmacen::pluck('')->all();
-          $articulos = Articulo::pluck('cod_articulo','desc_articulo')->all();      
-          $monedas = Moneda::pluck('cod_moneda')->all();      
-        //  $transacciones = Transaccion::pluck('')->all();      
-          //$sucursales = Sucursal::pluck('cod_sucursal','desc_almacen')->all();   
-          $sucursales = Almacen::pluck('cod_sucursal')->all();   
+          $articulos = Articulo::pluck('cod_articulo','desc_articulo')->all();
+          $monedas = Moneda::pluck('cod_moneda')->all();
+        //  $transacciones = Transaccion::pluck('')->all();
+          //$sucursales = Sucursal::pluck('cod_sucursal','desc_almacen')->all();
+          $sucursales = Almacen::pluck('cod_sucursal')->all();
           return view('transaccionArticulo.create',
           compact('almacenes','sucursales', 'monedas','articulos'));
-          
+
     }
 
 
-      
+
 
     /**
      * Store a newly created resource in storage.
@@ -64,7 +68,7 @@ class TransaccionArticuloController extends Controller
      */
     public function show($id)
     {
-        
+
     }
 
     /**
@@ -76,13 +80,13 @@ class TransaccionArticuloController extends Controller
     public function edit($id)
     {
         $transaccionArticulo = TransaccionArticulo::findOrFail($id);
-        $almacenes = Almacen::pluck('cod_almacen')->all();        
+        $almacenes = Almacen::pluck('cod_almacen')->all();
         //  $grupoAlmacenes = GrupoAlmacen::pluck('')->all();
-          $articulos = Articulo::pluck('cod_articulo','desc_articulo')->all();      
-          $monedas = Moneda::pluck('cod_moneda')->all();      
-        //  $transacciones = Transaccion::pluck('')->all();      
-          //$sucursales = Sucursal::pluck('cod_sucursal','desc_almacen')->all();   
-          $sucursales = Almacen::pluck('cod_sucursal')->all();   
+          $articulos = Articulo::pluck('cod_articulo','desc_articulo')->all();
+          $monedas = Moneda::pluck('cod_moneda')->all();
+        //  $transacciones = Transaccion::pluck('')->all();
+          //$sucursales = Sucursal::pluck('cod_sucursal','desc_almacen')->all();
+          $sucursales = Almacen::pluck('cod_sucursal')->all();
           return view('transaccionArticulo.edit',
           compact('transaccionArticulo','articulos','almacenes','sucursales','monedas'));
   }
