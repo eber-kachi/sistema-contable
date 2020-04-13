@@ -18,6 +18,7 @@ Route::resource('articulo','ArticuloController');
 Route::resource('almacen','AlmacenController');
 Route::resource('unidad','UnidadController');
 Route::resource('transaccionArticulo','TransaccionArticuloController');
+Route::resource('user','UserController');
 
 Auth::routes();
 

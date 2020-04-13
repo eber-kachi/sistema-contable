@@ -56,6 +56,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" href="{{route('transaccionArticulo.index')}}">Transacciones</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{{route('user.index')}}">Usuarios</a>
+                        </li>
                     @endguest
                 </ul>
 
