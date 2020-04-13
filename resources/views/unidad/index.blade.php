@@ -23,16 +23,18 @@
                 <td>{{ $unidad->cod_sucursal }}</td>
                 <td>{{ $unidad->enviado }}</td>
                 <td>
-                    <form action="{{route('unidad.destroy',$unidad->cod_unidad)}}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-danger" type="submit" >
-                            Eliminar
-                        </button>
-                    </form>
-                    <a href="{{route('unidad.edit', $unidad->cod_unidad)}}" class="btn btn-info" >
-                        Editar
-                    </a>
+                    <div class="d-flex justify-content-around">
+                        <form action="{{route('unidad.destroy',$unidad->cod_unidad)}}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger" type="submit" >
+                                Eliminar
+                            </button>
+                        </form>
+                        <a href="{{route('unidad.edit', $unidad->cod_unidad)}}" class="btn btn-info" >
+                            Editar
+                        </a>
+                    </div>
                 </td>
             </tr>
         @endforeach
