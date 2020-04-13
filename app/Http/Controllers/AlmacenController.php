@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Almacen;
+use App\Bitacora;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AlmacenController extends Controller
 {
@@ -16,7 +18,7 @@ class AlmacenController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index()
     {
         $almacenes = Almacen::all();
@@ -44,12 +46,21 @@ class AlmacenController extends Controller
     public function store(Request $request)
     {
 //        dd($request);
+
         $almacen = new Almacen();
         $almacen->cod_almacen = $request->cod_almacen;
         $almacen->desc_almacen = $request->desc_almacen;
         $almacen->cod_sucursal = $request->cod_sucursal;
         $almacen->enviado ='0';
         $almacen->save();
+
+        $log= new Bitacora();
+        $log->user_id= Auth::id();
+        $log->table= 'Almacen';
+        $log->table_id= $almacen->cod_almacen;
+        $log->actions= 'Create';
+        $log->save();
+
         return redirect()->route('almacen.index');
     }
 
@@ -72,6 +83,7 @@ class AlmacenController extends Controller
      */
     public function edit($id)
     {
+
         $almacen = Almacen::find($id);
         return view('almacen.edit', compact('almacen'));
     }
@@ -90,6 +102,13 @@ class AlmacenController extends Controller
 //        $almacen->cod_sucursal = $request->cod_sucursal;
         $almacen->save();
 
+        $log= new Bitacora();
+        $log->user_id= Auth::id();
+        $log->table= 'Almacen';
+        $log->table_id= $almacen->cod_almacen;
+        $log->actions= 'Update';
+        $log->save();
+
         return redirect()->route('almacen.index');
     }
 
@@ -103,6 +122,13 @@ class AlmacenController extends Controller
     {
 //        dd($id);
          Almacen::find($id)->delete();
+
+        $log= new Bitacora();
+        $log->user_id= Auth::id();
+        $log->table= 'Almacen';
+        $log->table_id= $id;
+        $log->actions= 'Delete';
+        $log->save();
 
         return redirect()->route('almacen.index');
     }
