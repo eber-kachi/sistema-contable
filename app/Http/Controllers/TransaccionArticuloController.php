@@ -7,7 +7,9 @@ use App\Articulo;
 use App\Almacen;
 use App\Moneda;
 use App\Unidad;
+use App\Bitacora;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TransaccionArticuloController extends Controller
 {
@@ -56,7 +58,15 @@ class TransaccionArticuloController extends Controller
      */
     public function store(Request $request)
     {
-        TransaccionArticulo::create($request->all());
+        $transa=TransaccionArticulo::create($request->all());
+
+        $log= new Bitacora();
+        $log->user_id= Auth::id();
+        $log->table= 'Transaccion Articulo';
+        $log->table_id= $transa->nc_trans_articulo;
+        $log->actions= 'Create';
+        $log->save();
+
         return redirect()->route('transaccionArticulo.index');
     }
 
@@ -102,6 +112,14 @@ class TransaccionArticuloController extends Controller
     {
         $transaccionArticulo = TransaccionArticulo::findOrFail($id);
         $transaccionArticulo->update($request->all());
+
+        $log= new Bitacora();
+        $log->user_id= Auth::id();
+        $log->table= 'Transaccion Articulo';
+        $log->table_id= $id;
+        $log->actions= 'Update';
+        $log->save();
+
         return redirect()->route('transaccionArticulo.index');
     }
 
@@ -115,6 +133,14 @@ class TransaccionArticuloController extends Controller
     {
         $transaccionArticulo = transaccionArticulo::findOrFail($id);
         $transaccionArticulo->delete();
+
+        $log= new Bitacora();
+        $log->user_id= Auth::id();
+        $log->table= 'Transaccion Articulo';
+        $log->table_id= $id;
+        $log->actions= 'Delete';
+        $log->save();
+
         return redirect()->route('transaccionArticulo.index');
     }
 }
