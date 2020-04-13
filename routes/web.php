@@ -18,3 +18,11 @@ Route::resource('articulo','ArticuloController');
 Route::resource('almacen','AlmacenController');
 Route::resource('unidad','UnidadController');
 Route::resource('transaccionArticulo','TransaccionArticuloController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
