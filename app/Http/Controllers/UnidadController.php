@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Bitacora;
 use App\Unidad;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UnidadController extends Controller
 {
@@ -12,6 +14,10 @@ class UnidadController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         //
@@ -45,6 +51,14 @@ class UnidadController extends Controller
         $unidad->cod_sucursal = $request->get('cod_sucursal');
         $unidad->enviado = $request->get('enviado');
         $unidad->save();
+
+        $log= new Bitacora();
+        $log->user_id= Auth::id();
+        $log->table= 'Unindad';
+        $log->table_id= $unidad->cod_unidad;
+        $log->actions= 'Create';
+        $log->save();
+
         return redirect()->route('unidad.index');
     }
 
@@ -88,6 +102,13 @@ class UnidadController extends Controller
         $unidad->enviado = $request->get('enviado');
         $unidad->update();
 
+        $log= new Bitacora();
+        $log->user_id= Auth::id();
+        $log->table= 'Unidad';
+        $log->table_id= $cod_unidad;
+        $log->actions= 'Update';
+        $log->save();
+
         return redirect()->route('unidad.index', $cod_unidad);
     }
 
@@ -102,6 +123,13 @@ class UnidadController extends Controller
         //
         $unidad = Unidad::find($cod_unidad);
         $unidad->delete();
+
+        $log= new Bitacora();
+        $log->user_id= Auth::id();
+        $log->table= 'Unidad';
+        $log->table_id= $cod_unidad;
+        $log->actions= 'Delete';
+        $log->save();
 
         return redirect()->route('unidad.index');
     }

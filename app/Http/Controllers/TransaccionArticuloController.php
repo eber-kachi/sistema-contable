@@ -7,7 +7,9 @@ use App\Articulo;
 use App\Almacen;
 use App\Moneda;
 use App\Unidad;
+use App\Bitacora;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TransaccionArticuloController extends Controller
 {
@@ -16,6 +18,10 @@ class TransaccionArticuloController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         $transaccionArticulos = TransaccionArticulo::all();
@@ -29,21 +35,20 @@ class TransaccionArticuloController extends Controller
      */
     public function create()
     {
-        $almacenes = Almacen::pluck('cod_almacen','desc_almacen')->all();        
+        $almacenes = Almacen::pluck('cod_almacen')->all();
         //  $grupoAlmacenes = GrupoAlmacen::pluck('')->all();
-          $articulos = Articulo::pluck('cod_articulo','desc_articulo')->all();      
-          $monedas = Moneda::pluck('cod_moneda')->all();      
-        //  $transacciones = Transaccion::pluck('')->all();      
-          //$sucursales = Sucursal::pluck('cod_sucursal','desc_almacen')->all();   
-          $sucursales = Almacen::pluck('desc_almacen','cod_sucursal')->all();   
-          $unidades = Unidad::pluck('cod_unidad','desc_unidad')->all();
+          $articulos = Articulo::pluck('cod_articulo','desc_articulo')->all();
+          $monedas = Moneda::pluck('cod_moneda')->all();
+        //  $transacciones = Transaccion::pluck('')->all();
+          //$sucursales = Sucursal::pluck('cod_sucursal','desc_almacen')->all();
+          $sucursales = Almacen::pluck('cod_sucursal')->all();
           return view('transaccionArticulo.create',
-          compact('almacenes','sucursales', 'unidades', 'monedas','articulos'));
-          
+          compact('almacenes','sucursales', 'monedas','articulos'));
+
     }
 
 
-      
+
 
     /**
      * Store a newly created resource in storage.
@@ -53,7 +58,15 @@ class TransaccionArticuloController extends Controller
      */
     public function store(Request $request)
     {
-        TransaccionArticulo::create($request->all());
+        $transa=TransaccionArticulo::create($request->all());
+
+        $log= new Bitacora();
+        $log->user_id= Auth::id();
+        $log->table= 'Transaccion Articulo';
+        $log->table_id= $transa->nc_trans_articulo;
+        $log->actions= 'Create';
+        $log->save();
+
         return redirect()->route('transaccionArticulo.index');
     }
 
@@ -65,7 +78,7 @@ class TransaccionArticuloController extends Controller
      */
     public function show($id)
     {
-        
+
     }
 
     /**
@@ -77,16 +90,15 @@ class TransaccionArticuloController extends Controller
     public function edit($id)
     {
         $transaccionArticulo = TransaccionArticulo::findOrFail($id);
-        $almacenes = Almacen::pluck('desc_almacen','cod_almacen')->all();        
+        $almacenes = Almacen::pluck('cod_almacen')->all();
         //  $grupoAlmacenes = GrupoAlmacen::pluck('')->all();
-          $articulos = Articulo::pluck('desc_articulo','cod_articulo')->all();      
-          $monedas = Moneda::pluck('cod_moneda')->all();      
-        //  $transacciones = Transaccion::pluck('')->all();      
-          //$sucursales = Sucursal::pluck('desc_almacen','cod_sucursal')->all(); 
-          $sucursales = Almacen::pluck('desc_almacen','cod_sucursal')->all();     
-          $unidades = Unidad::pluck('desc_unidad','cod_unidad')->all();
+          $articulos = Articulo::pluck('cod_articulo','desc_articulo')->all();
+          $monedas = Moneda::pluck('cod_moneda')->all();
+        //  $transacciones = Transaccion::pluck('')->all();
+          //$sucursales = Sucursal::pluck('cod_sucursal','desc_almacen')->all();
+          $sucursales = Almacen::pluck('cod_sucursal')->all();
           return view('transaccionArticulo.edit',
-          compact('transaccionArticulo','articulo','almacenes','sucursales','unidades','monedas'));
+          compact('transaccionArticulo','articulos','almacenes','sucursales','monedas'));
   }
 
     /**
@@ -100,6 +112,14 @@ class TransaccionArticuloController extends Controller
     {
         $transaccionArticulo = TransaccionArticulo::findOrFail($id);
         $transaccionArticulo->update($request->all());
+
+        $log= new Bitacora();
+        $log->user_id= Auth::id();
+        $log->table= 'Transaccion Articulo';
+        $log->table_id= $id;
+        $log->actions= 'Update';
+        $log->save();
+
         return redirect()->route('transaccionArticulo.index');
     }
 
@@ -113,6 +133,14 @@ class TransaccionArticuloController extends Controller
     {
         $transaccionArticulo = transaccionArticulo::findOrFail($id);
         $transaccionArticulo->delete();
+
+        $log= new Bitacora();
+        $log->user_id= Auth::id();
+        $log->table= 'Transaccion Articulo';
+        $log->table_id= $id;
+        $log->actions= 'Delete';
+        $log->save();
+
         return redirect()->route('transaccionArticulo.index');
     }
 }

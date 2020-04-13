@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Articulo;
 use App\Almacen;
 use App\Moneda;
+use App\Bitacora;
 use App\Unidad;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ArticuloController extends Controller
 {
@@ -15,6 +17,10 @@ class ArticuloController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         $articulos = Articulo::all();
@@ -44,7 +50,15 @@ class ArticuloController extends Controller
      */
     public function store(Request $request)
     {
-        Articulo::create($request->all());
+        $articulo=Articulo::create($request->all());
+
+        $log= new Bitacora();
+        $log->user_id= Auth::id();
+        $log->table= 'Articulo';
+        $log->table_id= $articulo->cod_articulo;
+        $log->actions= 'Create';
+        $log->save();
+
         return redirect()->route('articulo.index');
     }
 
@@ -87,6 +101,14 @@ class ArticuloController extends Controller
     {
         $articulo = Articulo::findOrFail($id);
         $articulo->update($request->all());
+
+        $log= new Bitacora();
+        $log->user_id= Auth::id();
+        $log->table= 'Articulo';
+        $log->table_id= $id;
+        $log->actions= 'Update';
+        $log->save();
+
         return redirect()->route('articulo.index');
     }
 
@@ -100,6 +122,14 @@ class ArticuloController extends Controller
     {
         $articulo = Articulo::findOrFail($id);
         $articulo->delete();
+
+        $log= new Bitacora();
+        $log->user_id= Auth::id();
+        $log->table= 'Articulo';
+        $log->table_id= $id;
+        $log->actions= 'Delete';
+        $log->save();
+
         return redirect()->route('articulo.index');
     }
 }

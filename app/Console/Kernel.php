@@ -24,8 +24,15 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('backup:clean')->daily()->timezone('America/La_Paz')
+        ->at('00:00');
+        $schedule->command('backup:run')->daily()->timezone('America/La_Paz')
+        ->at('00:01');
+    }
+
+    protected function scheduleTimezone()
+    {
+        return 'America/La_Paz';
     }
 
     /**
@@ -39,4 +46,5 @@ class Kernel extends ConsoleKernel
 
         require base_path('routes/console.php');
     }
+
 }
