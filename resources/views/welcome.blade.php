@@ -17,9 +17,9 @@
 </head>
 <body>
 
-<div class="bg-info navbar-dark text-white ">
+<div class="bg-info navbar-dark text-white shadow-lg">
     <div class="container">
-        <nav class="navbar navbar-expand-lg  bg-info navbar-dark text-white  shadow-sm">
+        <nav class="navbar navbar-expand-lg  bg-info navbar-dark text-white  ">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
