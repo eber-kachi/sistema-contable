@@ -14,6 +14,7 @@
                             <th>User</th>
                             <th>tabla</th>
                             <th>tabla id</th>
+                            <th>fecha</th>
                             <th>Query</th>
                         </tr>
                         </thead>
@@ -23,6 +24,7 @@
                                 <td>{{ $bita->user->email }}</td>
                                 <td>{{ $bita->tableName }}</td>
                                 <td>{{ $bita->table_id }}</td>
+                                <td>{{ $bita->created_at }}</td>
                                 <td>{{ $bita->actions }}</td>
                             </tr>
                         @endforeach

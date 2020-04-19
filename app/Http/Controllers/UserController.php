@@ -17,20 +17,20 @@ class UserController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index()
     {
-        $rol = auth()->user()->rol;
-        if($rol == "Administrador"){
-            $users = User::all();
-        $count=0;
-        return view('user.index', compact('users','count'));
-        }
-        else{
+        /* $rol = auth()->user()->rol;
+         if($rol == "Administrador"){*/
         $users = User::all();
-        $count=0;
-        return view('/Home', compact('users','count'));
-        }
+        $count = 0;
+        return view('user.index', compact('users', 'count'));
+        /*   }
+           else{
+           $users = User::all();
+           $count=0;
+           return view('/Home', compact('users','count'));
+           }*/
     }
 
     /**
@@ -40,7 +40,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        
+
     }
 
     /**
@@ -52,7 +52,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
 //        dd($request);
-        
+
     }
 
     /**
@@ -74,7 +74,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        
+
     }
 
     /**
@@ -86,7 +86,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-       
+
     }
 
     /**
@@ -98,7 +98,7 @@ class UserController extends Controller
     public function destroy($id)
     {
 //        dd($id);
-         User::find($id)->delete();
+        User::find($id)->delete();
 
         return redirect()->route('user.index');
     }
