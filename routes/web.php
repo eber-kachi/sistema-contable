@@ -23,6 +23,7 @@ Route::resource('user','UserController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/bitacora', 'HomeController@getBitacora')->name('bitacora.logs');
 
 Auth::routes();
 
