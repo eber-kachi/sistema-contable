@@ -10,8 +10,15 @@ class Bitacora extends Model
     protected $primaryKey = 'bitacora_id';
     protected $fillable = [
         'user_id',
-        'table',
+        'tableName',
         'table_id',
         'actions',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+
 }

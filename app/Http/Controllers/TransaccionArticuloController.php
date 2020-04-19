@@ -10,6 +10,7 @@ use App\Unidad;
 use App\Bitacora;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class TransaccionArticuloController extends Controller
 {
@@ -21,6 +22,8 @@ class TransaccionArticuloController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        DB::connection()->enableQueryLog();
+
     }
     public function index()
     {
@@ -58,13 +61,15 @@ class TransaccionArticuloController extends Controller
      */
     public function store(Request $request)
     {
-        $transa=TransaccionArticulo::create($request->all());
+        $transa = TransaccionArticulo::create($request->all());
+        $queries = DB::getQueryLog();
+        $jsonQuery = json_encode($queries);
 
-        $log= new Bitacora();
-        $log->user_id= Auth::id();
-        $log->table= 'Transaccion Articulo';
-        $log->table_id= $transa->nc_trans_articulo;
-        $log->actions= 'Create';
+        $log = new Bitacora();
+        $log->user_id = Auth::id();
+        $log->tableName = 'Transaccion Articulo';
+        $log->table_id = $transa->nc_trans_articulo;
+        $log->actions = $jsonQuery;
         $log->save();
 
         return redirect()->route('transaccionArticulo.index');
@@ -113,11 +118,14 @@ class TransaccionArticuloController extends Controller
         $transaccionArticulo = TransaccionArticulo::findOrFail($id);
         $transaccionArticulo->update($request->all());
 
-        $log= new Bitacora();
-        $log->user_id= Auth::id();
-        $log->table= 'Transaccion Articulo';
-        $log->table_id= $id;
-        $log->actions= 'Update';
+        $queries = DB::getQueryLog();
+        $jsonQuery = json_encode($queries);
+
+        $log = new Bitacora();
+        $log->user_id = Auth::id();
+        $log->tableName = 'Transaccion Articulo';
+        $log->table_id = $id;
+        $log->actions = $jsonQuery;
         $log->save();
 
         return redirect()->route('transaccionArticulo.index');
@@ -134,11 +142,14 @@ class TransaccionArticuloController extends Controller
         $transaccionArticulo = transaccionArticulo::findOrFail($id);
         $transaccionArticulo->delete();
 
-        $log= new Bitacora();
-        $log->user_id= Auth::id();
-        $log->table= 'Transaccion Articulo';
-        $log->table_id= $id;
-        $log->actions= 'Delete';
+        $queries = DB::getQueryLog();
+        $jsonQuery = json_encode($queries);
+
+        $log = new Bitacora();
+        $log->user_id = Auth::id();
+        $log->tableName = 'Transaccion Articulo';
+        $log->table_id = $id;
+        $log->actions = $jsonQuery;
         $log->save();
 
         return redirect()->route('transaccionArticulo.index');

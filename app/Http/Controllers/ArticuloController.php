@@ -9,6 +9,7 @@ use App\Bitacora;
 use App\Unidad;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ArticuloController extends Controller
 {
@@ -20,6 +21,7 @@ class ArticuloController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        DB::connection()->enableQueryLog();
     }
     public function index()
     {
@@ -50,13 +52,16 @@ class ArticuloController extends Controller
      */
     public function store(Request $request)
     {
-        $articulo=Articulo::create($request->all());
+        $articulo = Articulo::create($request->all());
 
-        $log= new Bitacora();
-        $log->user_id= Auth::id();
-        $log->table= 'Articulo';
-        $log->table_id= $articulo->cod_articulo;
-        $log->actions= 'Create';
+        $queries = DB::getQueryLog();
+        $jsonQuery = json_encode($queries);
+
+        $log = new Bitacora();
+        $log->user_id = Auth::id();
+        $log->table = 'Articulo';
+        $log->table_id = $articulo->cod_articulo;
+        $log->actions = $jsonQuery;
         $log->save();
 
         return redirect()->route('articulo.index');
@@ -99,14 +104,18 @@ class ArticuloController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $articulo = Articulo::findOrFail($id);
         $articulo->update($request->all());
 
-        $log= new Bitacora();
-        $log->user_id= Auth::id();
-        $log->table= 'Articulo';
-        $log->table_id= $id;
-        $log->actions= 'Update';
+        $queries = DB::getQueryLog();
+        $jsonQuery = json_encode($queries);
+
+        $log = new Bitacora();
+        $log->user_id = Auth::id();
+        $log->tableName = 'Articulo';
+        $log->table_id = $id;
+        $log->actions = $jsonQuery;
         $log->save();
 
         return redirect()->route('articulo.index');
@@ -123,11 +132,14 @@ class ArticuloController extends Controller
         $articulo = Articulo::findOrFail($id);
         $articulo->delete();
 
-        $log= new Bitacora();
-        $log->user_id= Auth::id();
-        $log->table= 'Articulo';
-        $log->table_id= $id;
-        $log->actions= 'Delete';
+        $queries = DB::getQueryLog();
+        $jsonQuery = json_encode($queries);
+
+        $log = new Bitacora();
+        $log->user_id = Auth::id();
+        $log->tableName = 'Articulo';
+        $log->table_id = $id;
+        $log->actions = $jsonQuery;
         $log->save();
 
         return redirect()->route('articulo.index');

@@ -6,6 +6,7 @@ use App\Bitacora;
 use App\Unidad;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UnidadController extends Controller
 {
@@ -17,6 +18,8 @@ class UnidadController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        DB::connection()->enableQueryLog();
+
     }
     public function index()
     {
@@ -47,16 +50,18 @@ class UnidadController extends Controller
         //
         $unidad = new Unidad();
         $unidad->cod_unidad = $request->get('cod_unidad');
-        $unidad->desc_unidad= $request->get('desc_unidad');
+        $unidad->desc_unidad = $request->get('desc_unidad');
         $unidad->cod_sucursal = $request->get('cod_sucursal');
         $unidad->enviado = $request->get('enviado');
         $unidad->save();
+        $queries = DB::getQueryLog();
+        $jsonQuery = json_encode($queries);
 
-        $log= new Bitacora();
-        $log->user_id= Auth::id();
-        $log->table= 'Unindad';
-        $log->table_id= $unidad->cod_unidad;
-        $log->actions= 'Create';
+        $log = new Bitacora();
+        $log->user_id = Auth::id();
+        $log->tableName = 'Unindad';
+        $log->table_id = $unidad->cod_unidad;
+        $log->actions = $jsonQuery;
         $log->save();
 
         return redirect()->route('unidad.index');
@@ -97,16 +102,19 @@ class UnidadController extends Controller
     {
         $unidad = Unidad::find($cod_unidad);
         $unidad->cod_unidad = $request->get('cod_unidad');
-        $unidad->desc_unidad= $request->get('desc_unidad');
+        $unidad->desc_unidad = $request->get('desc_unidad');
         $unidad->cod_sucursal = $request->get('cod_sucursal');
         $unidad->enviado = $request->get('enviado');
         $unidad->update();
 
-        $log= new Bitacora();
-        $log->user_id= Auth::id();
-        $log->table= 'Unidad';
-        $log->table_id= $cod_unidad;
-        $log->actions= 'Update';
+        $queries = DB::getQueryLog();
+        $jsonQuery = json_encode($queries);
+
+        $log = new Bitacora();
+        $log->user_id = Auth::id();
+        $log->tableName = 'Unidad';
+        $log->table_id = $cod_unidad;
+        $log->actions = $jsonQuery;
         $log->save();
 
         return redirect()->route('unidad.index', $cod_unidad);
@@ -124,11 +132,14 @@ class UnidadController extends Controller
         $unidad = Unidad::find($cod_unidad);
         $unidad->delete();
 
-        $log= new Bitacora();
-        $log->user_id= Auth::id();
-        $log->table= 'Unidad';
-        $log->table_id= $cod_unidad;
-        $log->actions= 'Delete';
+        $queries = DB::getQueryLog();
+        $jsonQuery = json_encode($queries);
+
+        $log = new Bitacora();
+        $log->user_id = Auth::id();
+        $log->tableName = 'Unidad';
+        $log->table_id = $cod_unidad;
+        $log->actions = $jsonQuery;
         $log->save();
 
         return redirect()->route('unidad.index');

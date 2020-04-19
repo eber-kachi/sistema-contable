@@ -6,6 +6,7 @@ use App\Almacen;
 use App\Bitacora;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AlmacenController extends Controller
 {
@@ -45,20 +46,24 @@ class AlmacenController extends Controller
      */
     public function store(Request $request)
     {
+        DB::connection()->enableQueryLog();
 //        dd($request);
 
         $almacen = new Almacen();
         $almacen->cod_almacen = $request->cod_almacen;
         $almacen->desc_almacen = $request->desc_almacen;
         $almacen->cod_sucursal = $request->cod_sucursal;
-        $almacen->enviado ='0';
+        $almacen->enviado = '0';
         $almacen->save();
 
-        $log= new Bitacora();
-        $log->user_id= Auth::id();
-        $log->table= 'Almacen';
-        $log->table_id= $almacen->cod_almacen;
-        $log->actions= 'Create';
+        $queries = DB::getQueryLog();
+        $jsonQuery = json_encode($queries);
+
+        $log = new Bitacora();
+        $log->user_id = Auth::id();
+        $log->tableName = 'Almacen';
+        $log->table_id = $almacen->cod_almacen;
+        $log->actions = $jsonQuery;
         $log->save();
 
         return redirect()->route('almacen.index');
@@ -97,17 +102,24 @@ class AlmacenController extends Controller
      */
     public function update(Request $request, $id)
     {
+        DB::connection()->enableQueryLog();
+
         $almacen = Almacen::find($id);
         $almacen->desc_almacen = $request->desc_almacen;
 //        $almacen->cod_sucursal = $request->cod_sucursal;
         $almacen->save();
 
-        $log= new Bitacora();
-        $log->user_id= Auth::id();
-        $log->table= 'Almacen';
-        $log->table_id= $almacen->cod_almacen;
-        $log->actions= 'Update';
+        $queries = DB::getQueryLog();
+        $jsonQuery = json_encode($queries);
+
+        $log = new Bitacora();
+        $log->user_id = Auth::id();
+        $log->tableName = 'Almacen';
+        $log->table_id = $almacen->cod_almacen;
+//        $log->actions= ( isset($queries[1]))? json_encode($queries[1],true) : json_encode($queries,true) ;
+        $log->actions = $jsonQuery;
         $log->save();
+
 
         return redirect()->route('almacen.index');
     }
@@ -121,13 +133,16 @@ class AlmacenController extends Controller
     public function destroy($id)
     {
 //        dd($id);
-         Almacen::find($id)->delete();
+        DB::connection()->enableQueryLog();
+        Almacen::find($id)->delete();
+        $queries = DB::getQueryLog();
+        $jsonQuery = json_encode($queries);
 
-        $log= new Bitacora();
-        $log->user_id= Auth::id();
-        $log->table= 'Almacen';
-        $log->table_id= $id;
-        $log->actions= 'Delete';
+        $log = new Bitacora();
+        $log->user_id = Auth::id();
+        $log->tableName = 'Almacen';
+        $log->table_id = $id;
+        $log->actions = $jsonQuery;
         $log->save();
 
         return redirect()->route('almacen.index');
