@@ -7,13 +7,13 @@
                     <h2>Bitacoras</h2>
                 </div>
                 <div class="card-body">
-{{--                    {{$bitacoras}}--}}
+                    {{--                    {{$bitacoras}}--}}
                     <table class="table table-bordered">
                         <thead>
                         <tr>
                             <th>User</th>
-                            <th>tabla</th>
-                            <th>tabla id</th>
+                            {{--                            <th>tabla</th>--}}
+                            {{--                          <th>tabla id</th>--}}
                             <th>fecha</th>
                             <th>Query</th>
                         </tr>
@@ -22,14 +22,15 @@
                         @foreach($bitacoras as $bita)
                             <tr>
                                 <td>{{ $bita->user->email }}</td>
-                                <td>{{ $bita->tableName }}</td>
-                                <td>{{ $bita->table_id }}</td>
+                                {{--                                <td>{{ $bita->tableName }}</td>--}}
+                                {{--                                <td>{{ $bita->table_id }}</td>--}}
                                 <td>{{ $bita->created_at }}</td>
                                 <td>{{ $bita->actions }}</td>
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
+                    {{$bitacoras->links()}}
                 </div>
             </div>
         </div>

@@ -29,7 +29,8 @@ class HomeController extends Controller
 
     public function getBitacora()
     {
-        $bitacoras = Bitacora::with('user')->get();
+        $bitacoras = Bitacora::with('user')->paginate(10);
+        // $bitacoras = Bitacora::orderBy('nombre','asc')->get();
         return view('logs.index', compact('bitacoras'));
     }
 
