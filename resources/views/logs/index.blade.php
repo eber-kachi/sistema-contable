@@ -30,7 +30,9 @@
                         @endforeach
                         </tbody>
                     </table>
-                    {{$bitacoras->links()}}
+                    <div class="d-flex justify-content-center">
+                        {{$bitacoras->links()}}
+                    </div>
                 </div>
             </div>
         </div>
