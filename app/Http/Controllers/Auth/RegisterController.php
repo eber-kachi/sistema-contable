@@ -70,6 +70,7 @@ class RegisterController extends Controller
             $user = User::create([
                 'name' => $data['name'],
                 'email' => $data['email'],
+                'state' => 1,
                 'password' => Hash::make($data['password']),
             ]);
 //            $user->roles()->sync(3); //todo actualiza
