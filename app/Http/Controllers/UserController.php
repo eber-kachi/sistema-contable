@@ -22,7 +22,8 @@ class UserController extends Controller
     {
         /* $rol = auth()->user()->rol;
          if($rol == "Administrador"){*/
-        $users = User::all();
+        $users = User::with('roles')->orderBy('name')->get();
+//        dd($users);
         $count = 0;
         return view('user.index', compact('users', 'count'));
         /*   }
@@ -99,6 +100,15 @@ class UserController extends Controller
     {
 //        dd($id);
         User::find($id)->delete();
+
+        return redirect()->route('user.index');
+    }
+
+    public function updateState($id)
+    {
+        $user = User::find($id);
+        $user->state = (!$user->state);
+        $user->save();
 
         return redirect()->route('user.index');
     }

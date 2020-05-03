@@ -26,14 +26,22 @@
                                 <th scope="row">{{$count+1}}</th>
                                 <td>{{$user->name}}</td>
                                 <td>{{$user->email}}</td>
-                                {{--                                <td>{{$user->rol}}</td>--}}
-                                <td>{{$user->state}}</td>
+                                <td>
+                                    @foreach($user->roles as $role)
+                                        <span class="text-dark-50">{{$role->display_name}}</span>
+                                    @endforeach
+                                </td>
+                                <td>
+                                    {{--                                    $user->state--}}
+                                    <a href="{{route('user.updateState',$user->id)}}" class="btn btn-sm @if($user->state) btn-warning text-white  @else btn-outline-warning @endif">
+                                        @if($user->state)Desactivar  @else Activar @endif</a>
+                                </td>
                                 <td>
                                     <div class="d-flex justify-content-around">
                                         <form action="{{route('user.destroy',$user->id)}}" method="post">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn btn-danger" type="submit">
+                                            <button class="btn btn-sm btn-danger" type="submit">
                                                 Eliminar
                                             </button>
                                         </form>
